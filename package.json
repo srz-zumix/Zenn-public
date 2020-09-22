@@ -1,0 +1,23 @@
+{
+  "name": "Zenn-with-CI",
+  "version": "1.0.0",
+  "description": "Zenn.dev with CI",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/srz-zumix/Zenn-with-CI.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/srz-zumix/Zenn-with-CI/issues"
+  },
+  "homepage": "https://github.com/srz-zumix/Zenn-with-CI#readme",
+  "dependencies": {
+    "zenn-cli": "^0.1.32"
+  }
+}
