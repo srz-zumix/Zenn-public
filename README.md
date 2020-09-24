@@ -1,2 +1,4 @@
-# Zenn-with-CI
-Zenn.dev with CI
+# Zenn-public
+
+Zenn.dev の公開記事の置き場
+
