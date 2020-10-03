@@ -3,6 +3,8 @@ on: [pull_request]
 jobs:
   sync-from-private:
     runs-on: ubuntu-latest
+    env:
+      PYTHON_VERSION: 3.8
     steps:
       - uses: actions/checkout@v1
       - uses: actions/checkout@v1
@@ -20,6 +22,14 @@ jobs:
       - name: create branch
         run: |
           git checkout -b ${{ steps.create_branch_name.outputs.branch }}
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - name: Set Python environment variable
+        run: echo '::set-env name=LD_LIBRARY_PATH::${{ env.pythonLocation }}/lib'
+      - name: sync
+        run: |
+          python check-publish.py ../Zenn
       # - name: Create Pull Request
       #   uses: peter-evans/create-pull-request@v3
       #   branch: ${{ steps.create_branch_name.outputs.branch }}
