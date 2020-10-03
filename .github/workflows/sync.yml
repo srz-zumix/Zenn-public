@@ -14,7 +14,7 @@ jobs:
       - name: create branch name
         id: create_branch_name
         run: |
-          cd ${GITHUB_WORKSPACE}/Zenn
+          cd ../Zenn
           NAME=$(git rev-parse HEAD)
           echo "##[set-output name=branch;]$(echo sync/${NAME})"
       - name: create branch
