@@ -1,7 +1,7 @@
 name: 'Run sync'
 on: [pull_request]
 jobs:
-  textlint:
+  sync-from-private:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -10,4 +10,16 @@ jobs:
           repository: srz-zumix/Zenn
           token: ${{ secrets.GITHUBPAT }}
           ref: master
+      - name: create branch name
+        id: create_branch_name
+        run: |
+          cd Zenn
+          NAME=$(git rev-parse HEAD)
+          echo "##[set-output name=branch;]$(echo sync/${NAME})"
+      - name: create branch
+        run: |
+          git checkout -b ${{ steps.create_branch_name.outputs.branch }}
+      # - name: Create Pull Request
+      #   uses: peter-evans/create-pull-request@v3
+      #   branch: ${{ steps.create_branch_name.outputs.branch }}
 
