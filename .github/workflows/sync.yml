@@ -10,6 +10,7 @@ jobs:
           repository: srz-zumix/Zenn
           token: ${{ secrets.GITHUBPAT }}
           ref: master
+          path: ./Zenn
       - name: create branch name
         id: create_branch_name
         run: |
