@@ -9,4 +9,5 @@ jobs:
         with:
           repository: srz-zumix/Zenn
           token: ${{ secrets.GITHUBPAT }}
+          ref: master
 
