@@ -39,5 +39,6 @@ jobs:
           git commit -m 'sync by ${{ steps.create_branch_name.outputs.hash }}'
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
-        branch: ${{ steps.create_branch_name.outputs.branch }}
+        with:
+          branch: ${{ steps.create_branch_name.outputs.branch }}
 
