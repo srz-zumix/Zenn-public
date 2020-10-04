@@ -19,15 +19,24 @@ def check(path):
                 return True
     return True
 
+
 def check_and_print(path):
     if check(path):
         print(path)
 
+
+def check_dir(path):
+    for f in os.listdir(path):
+        if os.path.isdir(f):
+            check_dir(f)
+        elif os.path.isfile(path):
+            check_and_print(f)
+
+
 def main():
     for path in sys.argv[1:]:
         if os.path.isdir(path):
-            for f in os.listdir(path):
-                check_and_print(f)
+            check_dir(path)
         elif os.path.isfile(path):
             check_and_print(path)
 
