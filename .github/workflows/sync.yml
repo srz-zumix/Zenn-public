@@ -40,7 +40,6 @@ jobs:
         run: |
           git add ./articles
           git commit -m 'sync by ${{ steps.create_branch_name.outputs.hash }}'
-          git push origin HEAD
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
