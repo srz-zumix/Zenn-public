@@ -25,6 +25,7 @@ jobs:
       - name: create branch
         run: |
           git checkout -b ${{ steps.create_branch_name.outputs.branch }}
+          git branch
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ env.PYTHON_VERSION }}
@@ -42,7 +43,6 @@ jobs:
         run: |
           git add ./articles
           git commit -m 'sync by https://github.com/${{ env.FROM_REPO_USER }}/${{ env.FROM_REPO_NAME }}/commit/${{ steps.create_branch_name.outputs.hash }}'
-          git log
           git push https://${GITHUB_ACTOR}:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git ${{ steps.create_branch_name.outputs.branch }}
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
