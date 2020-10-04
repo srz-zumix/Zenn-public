@@ -36,9 +36,9 @@ jobs:
         with:
           base: master
           branch: ${{ steps.create_branch_name.outputs.branch }}
-          title: "Sync from private {{ steps.create_branch_name.outputs.hash }}"
-          body: "sync by https://github.com/${{ env.FROM_REPO_USER }}/${{ env.FROM_REPO_NAME }}/commit/${{ steps.create_branch_name.outputs.hash }}"
-          commit-message: "sync by ${{ steps.create_branch_name.outputs.hash }}"
+          title: Sync from private {{ steps.create_branch_name.outputs.hash }}
+          body: sync by https://github.com/${{ env.FROM_REPO_USER }}/${{ env.FROM_REPO_NAME }}/commit/${{ steps.create_branch_name.outputs.hash }}
+          commit-message: sync by ${{ steps.create_branch_name.outputs.hash }}
           delete-branch: true
           labels: "sync"
           reviewers: ${{ env.GITHUB_ACTOR }}
