@@ -22,9 +22,6 @@ jobs:
           HASH=$(git rev-parse HEAD)
           echo "##[set-output name=hash;]$(echo ${HASH})"
           echo "##[set-output name=branch;]$(echo sync/${HASH})"
-      # - name: create branch
-      #   run: |
-      #     git checkout -b ${{ steps.create_branch_name.outputs.branch }}
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ env.PYTHON_VERSION }}
@@ -34,18 +31,15 @@ jobs:
         run: |
           rm -rf ./articles/*.md
           python check-publish.py ../From/articles | xargs -I {} cp -f {} ./articles/
-      # - name: git config
-      #   run: |
-      #     git config --local user.email "noreply@github.com"
-      #     git config --local user.name  "GitHub"
-      # - name: git commit/push
-      #   run: |
-      #     git add ./articles
-      #     git commit -m 'sync by https://github.com/${{ env.FROM_REPO_USER }}/${{ env.FROM_REPO_NAME }}/commit/${{ steps.create_branch_name.outputs.hash }}'
-      #     git push https://${GITHUB_ACTOR}:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git HEAD
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
           base: master
           branch: ${{ steps.create_branch_name.outputs.branch }}
+          title: "Sync from private {{ steps.create_branch_name.outputs.hash }}"
+          body: "sync by https://github.com/${{ env.FROM_REPO_USER }}/${{ env.FROM_REPO_NAME }}/commit/${{ steps.create_branch_name.outputs.hash }}"
+          commit-message: "sync by ${{ steps.create_branch_name.outputs.hash }}"
+          delete-branch: true
+          labels: "sync"
+          reviewers: ${{ env.GITHUB_ACTOR }}
 
