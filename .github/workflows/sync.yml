@@ -30,12 +30,11 @@ jobs:
         run: echo '::set-env name=LD_LIBRARY_PATH::${{ env.pythonLocation }}/lib'
       - name: sync
         run: |
-          rm -rf ./articles
-          mkdir ./articles
+          rm -rf ./articles/*.md
           python check-publish.py ../Zenn/articles | xargs -I {} cp -f {} ./articles/
       - name: git config
         run: |
-          git config --local user.email "<>"
+          git config --local user.email "${{ secrets.USER_EMAIL }}"
           git config --local user.name "GitHub Action: Sync from private"
       - name: git
         run: |
