@@ -35,7 +35,7 @@ jobs:
       - name: git config
         run: |
           git config --local user.email "${{ secrets.USER_EMAIL }}"
-          git config --local user.name "GitHub Action: Sync from private"
+          git config --local user.name "GitHub Action - Sync from private"
       - name: git
         run: |
           git add ./articles
