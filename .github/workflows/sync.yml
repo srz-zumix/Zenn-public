@@ -1,0 +1,45 @@
+name: 'Run sync'
+on: [pull_request]
+jobs:
+  sync-from-private:
+    runs-on: ubuntu-latest
+    env:
+      PYTHON_VERSION: 3.8
+      FROM_REPO_USER: "srz-zumix"
+      FROM_REPO_NAME: "Zenn"
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/checkout@v1
+        with:
+          repository: ${{ env.FROM_REPO_USER }}/${{ env.FROM_REPO_NAME }}
+          token: ${{ secrets.GITHUBPAT }}
+          ref: master
+          path: ./From
+      - name: create branch name
+        id: create_branch_name
+        run: |
+          cd ../From
+          HASH=$(git rev-parse HEAD)
+          echo "##[set-output name=hash;]$(echo ${HASH})"
+          echo "##[set-output name=branch;]$(echo sync/${HASH})"
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - name: Set Python environment variable
+        run: echo '::set-env name=LD_LIBRARY_PATH::${{ env.pythonLocation }}/lib'
+      - name: sync
+        run: |
+          rm -rf ./articles/*.md
+          python check-publish.py ../From/articles | xargs -I {} cp -f {} ./articles/
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          base: master
+          branch: ${{ steps.create_branch_name.outputs.branch }}
+          title: "Sync from private ${{ steps.create_branch_name.outputs.hash }}"
+          body: "sync by https://github.com/${{ env.FROM_REPO_USER }}/${{ env.FROM_REPO_NAME }}/commit/${{ steps.create_branch_name.outputs.hash }}"
+          commit-message: "sync by ${{ steps.create_branch_name.outputs.hash }}"
+          delete-branch: true
+          labels: "sync"
+          reviewers: ${{ env.GITHUB_ACTOR }}
+
