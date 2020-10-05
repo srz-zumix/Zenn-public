@@ -1,5 +1,9 @@
 name: 'Run sync'
-on: [pull_request]
+on:
+  pull_request:
+  repository_dispatch:
+    types: [sync]
+
 jobs:
   sync-from-private:
     runs-on: ubuntu-latest
