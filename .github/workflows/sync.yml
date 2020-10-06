@@ -24,13 +24,13 @@ jobs:
         run: |
           cd ../From
           HASH=$(git rev-parse HEAD)
-          echo "{hash}={${HASH}}" >> $GITHUB_ENV
-          echo "{branch}={sync/${HASH}}" >> $GITHUB_ENV
+          echo "hash=${HASH}" >> $GITHUB_ENV
+          echo "branch=sync/${HASH}" >> $GITHUB_ENV
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ env.PYTHON_VERSION }}
       - name: Set Python environment variable
-        run: echo "{LD_LIBRARY_PATH}={${{ env.pythonLocation }}/lib}" >> $GITHUB_ENV
+        run: echo "LD_LIBRARY_PATH=${{ env.pythonLocation }}/lib" >> $GITHUB_ENV
       - name: sync
         run: |
           rm -rf ./articles/*.md
