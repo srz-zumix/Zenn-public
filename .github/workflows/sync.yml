@@ -24,8 +24,8 @@ jobs:
         run: |
           cd ../From
           HASH=$(git rev-parse HEAD)
-          echo "hash=${HASH}" >> $GITHUB_ENV
-          echo "branch=sync/${HASH}" >> $GITHUB_ENV
+          echo "##[set-output name=hash;]$(echo ${HASH})"
+          echo "##[set-output name=branch;]$(echo sync/${HASH})"
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ env.PYTHON_VERSION }}
