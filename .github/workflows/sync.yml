@@ -25,7 +25,8 @@ jobs:
           cd ../From
           HASH=$(git rev-parse HEAD)
           echo "##[set-output name=hash;]$(echo ${HASH})"
-          echo "##[set-output name=branch;]$(echo sync/${HASH})"
+          # echo "##[set-output name=branch;]$(echo sync/${HASH})"
+          echo "##[set-output name=branch;]$(echo sync/latest)"
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ env.PYTHON_VERSION }}
