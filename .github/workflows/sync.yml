@@ -1,6 +1,6 @@
 name: 'Run sync'
 on:
-  pull_request:
+  # pull_request:
   repository_dispatch:
     types: [sync]
 
