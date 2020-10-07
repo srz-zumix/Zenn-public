@@ -1,0 +1,16 @@
+name: 'Dispatch sync'
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  sync-trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: dispatch sync
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          repository: srz-zumix/Zenn
+          token: ${{ secrets.GITHUBPAT }}
+          event-type: sync
