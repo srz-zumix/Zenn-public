@@ -1,11 +1,11 @@
 name: 'Dispatch sync'
-on:
-  push:
-    branches:
-      - master
-    paths:
-      - 'articles/**'
-      - 'books/**'
+# on:
+#   push:
+#     branches:
+#       - master
+#     paths:
+#       - 'articles/**'
+#       - 'books/**'
 
 jobs:
   sync-trigger:
