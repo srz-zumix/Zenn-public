@@ -3,7 +3,7 @@ title: "GitHub Actions のローカル実行ツール（nektos/act）を便利�
 emoji: "🐙"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: [githubactions]
-published: false
+published: true
 ---
 
 ## gh-act をリリースしました
